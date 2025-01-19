@@ -22,19 +22,44 @@ export interface User extends Document{
    username:string;
    email:string;
    password:string;
+   varifyCode:string;
    verifyCodeExpiry:Date;
-   massage:Massage[];
+   massages:Massage[];
 }
 
-const UserSchema :Schema<Massage>=new Schema({
-    content:{
+const UserSchema :Schema<User>=new Schema({
+    username:{
         type: String,
         required:true
     }
     ,
-    createdAt:{
+    email:{
+        type:String,
+        required:true,
+        unique:true,
+        match:[/.+\.*/,"email is required"]
+        
+    }
+    ,
+    password:{
+        type:String,
+        required:[true,"password is required "]
+        
+    },
+    varifyCode:{
+        type:String,
+        required:[true," varifyCode is required "]
+        
+    }
+    ,
+    verifyCodeExpiry:{
         type:Date,
         required:true,
-        default:Date.now
+        
     }
+    ,
+    massages: [ MassageSchema ]
+    
 })
+
+export const UserModel=mongoose.model<User>("User", UserSchema )
