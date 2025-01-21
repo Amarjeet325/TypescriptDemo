@@ -16,7 +16,7 @@ async function dbConnect() :Promise<void> {
 
     //nahi to connect karte hai
     try {
-       const db= await mongoose.connect(process.env.MONGO_URI ||'',{})
+       const db= await mongoose.connect(process.env.MONGODB_URI ||'',{})
        console.log(db);
 
        connection.isConnected=db.connections[0].readyState
@@ -24,8 +24,9 @@ async function dbConnect() :Promise<void> {
         
     } catch (error) {
         console.log("mongodb connection failed",error)
-        process.exit(1)
+        process.exit(1) // process ko gracefully exit kar do ,yadi database connect nahi hai to
     }
+
 }
 
 export default dbConnect;
