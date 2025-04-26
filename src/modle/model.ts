@@ -1,4 +1,4 @@
-import mongoose ,{Schema,Document} from "mongoose";
+import mongoose ,{Schema,Document} from "mongoose";  // use "documents" for the typedefined for typescript
 
 export interface Massage extends Document{
     content:"string";
